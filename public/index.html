@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>ToDo List</title>
+	<link href="./css/styles.css" rel="stylesheet">
+	<script src="./js/bundle.js"></script>
+</head>
+<body>
+	<div id="app">
+		<form v-on:submit.prevent="saveNewActivity">
+			<label for="new-activity">Add a new Activity to ToDo list</label>
+			<input id="new-activity" type="text" v-model="newActivity">
+			<div>
+				<input type="radio" id="set-priority-high" value="true" v-model="setPriority">
+				<label for="set-priority-high">Set Priority to High</label>
+			</div>
+			<!-- <div>
+				<input type="radio" id="set-priority-low" value="false" v-model="setPriority">
+				<label for="set-priority-low">Set Priority to Low</label>
+			</div> -->
+			<input type="submit" value="Save new activity">
+		</form>
+		<ul>
+			<li v-for="(activity, index) in activities" :class="activity.priority ? 'high':'low'">
+				<span>{{ activity.activity }}</span>
+				<button v-if="!activity.priority" @click="changePriorityHigh(index)">Change Priority to High</button>
+				<button class="low-priority" v-if="activity.priority" @click="changePriorityLow(index)">Change Priority to Low</button>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
